@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 
 class jogo:
@@ -23,9 +22,11 @@ class jogo:
     
     def check_fim_de_jogo(self):
         self.jogo = 0
+        diag_princ = self.tabuleiro.diagonal()
+        diag_sec = np.fliplr(self.tabuleiro).diagonal()
         check_linha = any([(len(set(self.tabuleiro[i]))==1) for i in range(3)])
         check_coluna = any([(len(set(self.tabuleiro[:,i]))==1) for i in range(3)])
-        check_diagonal = len(set(np.diagonal(self.tabuleiro))) == 1
+        check_diagonal = (len(set(diag_princ)) == 1 or len(set(diag_sec)) == 1)
         if check_linha or check_coluna or check_diagonal:
            self.jogo = 1
         return self.jogo
@@ -67,11 +68,10 @@ while jogo != 1:
         jogo = 1
         print('\nFim de jogo. Empate!')
     else:
-        i += 1
         jogo = Tabuleiro.check_fim_de_jogo()
-
         if jogo == 1:
             if i % 2 != 0:
                 print('\nFim de jogo. Parabéns jogador X!')
             else:
                 print('\nFim de jogo. Parabéns jogador O!')
+        i += 1
