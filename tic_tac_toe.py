@@ -10,7 +10,7 @@ class jogo:
         return self.map_tabuleiro
 
     def reiniciar_jogo(self):
-        self.tabuleiro = np.array([i for i in range(1,10)]).reshape(3, 3)
+        self.tabuleiro = np.array([str(i) for i in range(1,10)]).reshape(3, 3)
     
     def locais_vazios(self):
         self.empty_spc = [valor for (i,j),valor in np.ndenumerate(self.tabuleiro) if ((valor != 'X') and (valor != 'O'))]
@@ -51,17 +51,31 @@ jogo = Tabuleiro.check_fim_de_jogo()
 i = 1
 
 while jogo != 1:
+    invalido = True
+
     if i==1:
         Tabuleiro.retorna_tabuleiro()
 
     if i % 2 != 0:
         print(f'\nPlayer X é sua vez de jogar!')
-        jogada = input(f'Onde deseja marcar? {Tabuleiro.locais_vazios()}: ')
+        while invalido:
+            jogada = input(f'Onde deseja marcar? {Tabuleiro.locais_vazios()}: ')
+            if jogada in Tabuleiro.locais_vazios():
+                invalido = False
+            else:
+                print('Jogada Inválida')
+
         player_x.marcar(jogada)
 
     else:
         print(f'\nPlayer O é sua vez de jogar!')
-        jogada = input(f'Onde deseja marcar? {Tabuleiro.locais_vazios()}: ')
+        while invalido:
+            jogada = input(f'Onde deseja marcar? {Tabuleiro.locais_vazios()}: ')
+            if jogada in Tabuleiro.locais_vazios():
+                invalido = False
+            else:
+                print('Jogada Inválida')
+
         player_o.marcar(jogada)
 
     if Tabuleiro.locais_vazios() == []:
@@ -74,4 +88,17 @@ while jogo != 1:
                 print('\nFim de jogo. Parabéns jogador X!')
             else:
                 print('\nFim de jogo. Parabéns jogador O!')
+
+            reset = '0'
+            while (reset != '1') and (reset != '2'):
+                reset = input('Deseja jogar novamente? 1 para sim 2 para não: ')
+                if reset == '1':
+                    jogo = 0
+                    Tabuleiro.reiniciar_jogo()
+                    print('\nNovo Jogo Iniciado!')
+                elif reset == '2':
+                    print('Fim de jogo')
+                else:
+                    print('Entrada inválida.')
+
         i += 1
