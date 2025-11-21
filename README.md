@@ -38,15 +38,13 @@ O jogo é executado no terminal e permite que dois jogadores joguem alternadamen
 
 Tabuleiro inicial:
 
-['1' '2' '3']  
-['4' '5' '6']  
+['1' '2' '3']
+['4' '5' '6']
 ['7' '8' '9']
 
  
 ## 💡 Melhorias futuras (ideias)
 
-- Verificação da entrada do jogador (evitar marcações inválidas ou repetidas)
 - Interface gráfica com Tkinter ou PyGame
 - Jogo contra o computador (modo IA)
 - Pontuação acumulativa entre partidas
-
